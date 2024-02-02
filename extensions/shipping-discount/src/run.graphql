@@ -24,7 +24,7 @@ query RunInput {
   discountNode {
     metafield(
       namespace: "$app:shipping-discount"
-      key: "function-configuration"
+      key: "shipping-discount-test"
     ) {
       value
     }

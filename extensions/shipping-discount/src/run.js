@@ -1,5 +1,5 @@
 // @ts-check
-import { DiscountApplicationStrategy } from "../generated/api";
+
 
 /**
  * @typedef {import("../generated/api").RunInput} RunInput
