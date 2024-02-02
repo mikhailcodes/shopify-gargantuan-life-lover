@@ -1,6 +1,31 @@
+# This query is used to get the buyer's identity, cart, and the discount configuration
+# The buyer's identity is used to check if the buyer is a VIP customer
+
 query RunInput {
+  cart {
+    buyerIdentity {
+      customer {
+        hasAnyTag(tags: ["VIP"])
+        numberOfOrders
+      }
+    }
+    cost {
+      subtotalAmount {
+        amount
+      }
+    }
+    deliveryGroups {
+      deliveryOptions {
+        title
+      }
+      id
+    }
+  }
   discountNode {
-    metafield(namespace: "$app:shipping-discount", key: "function-configuration") {
+    metafield(
+      namespace: "$app:shipping-discount"
+      key: "function-configuration"
+    ) {
       value
     }
   }
