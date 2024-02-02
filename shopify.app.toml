@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "9516d1bae1363a7db4c7fbe3ac753eca"
+name = "growing-shipping-testing"
+handle = "growing-shipping-testing"
+application_url = "https://berry-colorado-amy-dem.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "hi-test-config.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://berry-colorado-amy-dem.trycloudflare.com/auth/callback",
+  "https://berry-colorado-amy-dem.trycloudflare.com/auth/shopify/callback",
+  "https://berry-colorado-amy-dem.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-01"
+
+[pos]
+embedded = false
