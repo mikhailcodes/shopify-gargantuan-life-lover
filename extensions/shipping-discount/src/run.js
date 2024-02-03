@@ -25,18 +25,22 @@ export function run(input) {
   const { hasAnyTag, numberOfOrders } = input?.cart?.buyerIdentity?.customer;
   const deliveryGroups = input?.cart?.deliveryGroups;
 
-  if (hasAnyTag == true && numberOfOrders <= 1) {
-    const hasExpressDelivery = deliveryGroups.some(group => {
-      return group.deliveryOptions.some(option => option.title === 'Express');
-    });
+  if (hasAnyTag && numberOfOrders <= 1) {
+    const expressDeliveryOption = findExpressDelivery(deliveryGroups);
+    const expressHandle = expressDeliveryOption ? expressDeliveryOption.handle : null;
 
-    if (hasExpressDelivery) {
-      const targets = deliveryGroups.map(deliveryGroup => ({ deliveryGroup })); // In the event of multiple delivery groups, we want to target only the ones that have express delivery
+    if (expressDeliveryOption) {
       return {
         discounts: [
           {
             message: "You have a discount",
-            targets,
+            targets: [
+              {
+                deliveryOption: {
+                  handle: expressHandle
+                }
+              }
+            ],
             value: {
               percentage: {
                 value: 50
@@ -51,3 +55,15 @@ export function run(input) {
 
   return EMPTY_DISCOUNT;
 };
+
+
+function findExpressDelivery(deliveryGroups) {
+  for (const group of deliveryGroups) {
+    for (const option of group.deliveryOptions) {
+      if (option.title === "Express") {
+        return option;
+      }
+    }
+  }
+  return null;
+}

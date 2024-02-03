@@ -17,4 +17,4 @@ type = "function"
 
   [extensions.ui.paths]
   create = "/app/discount/:functionId/new"
-  details = "/app/discount/:functionId/new"
+  details = "/app/discount/:functionId/:id"

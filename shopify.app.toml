@@ -3,7 +3,7 @@
 client_id = "9516d1bae1363a7db4c7fbe3ac753eca"
 name = "growing-shipping-testing"
 handle = "growing-shipping-testing"
-application_url = "https://congo-gang-novels-honest.trycloudflare.com"
+application_url = "https://dow-bean-hometown-ozone.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products, write_discounts, write_delivery_customizations"
 
 [auth]
 redirect_urls = [
-  "https://congo-gang-novels-honest.trycloudflare.com/auth/callback",
-  "https://congo-gang-novels-honest.trycloudflare.com/auth/shopify/callback",
-  "https://congo-gang-novels-honest.trycloudflare.com/api/auth/callback"
+  "https://dow-bean-hometown-ozone.trycloudflare.com/auth/callback",
+  "https://dow-bean-hometown-ozone.trycloudflare.com/auth/shopify/callback",
+  "https://dow-bean-hometown-ozone.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
