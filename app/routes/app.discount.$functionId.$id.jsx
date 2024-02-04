@@ -5,6 +5,7 @@ import {
   useNavigation,
   Form,
   useActionData,
+  useLoaderData,
 } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import {
@@ -14,6 +15,7 @@ import {
 } from "../helpers/helpers";
 
 export const loader = async ({ params, request }) => {
+  const { id } = params;
   // On load we want to check if the app metafields/data are already created
   if (id == "new") {
     return {
@@ -29,24 +31,22 @@ export const loader = async ({ params, request }) => {
     };
   }
 
-  const { id } = params;
-  const createDiscount = await getAutomaticDiscountData(id, request);
+  const createDiscount = await getAutomaticDiscountData(params, request);
   return createDiscount;
 };
 
 export const action = async ({ params, request }) => {
   // On submit we want to create or update the app metafields and data
   const { id } = params;
-  const errors = [];
   let createDiscount = {};
+  let errors = [];
 
   createDiscount =
     id == "new"
       ? await createAutomaticDiscount(params, request)
-      : await updateAutomaticDiscount(request);
+      : await updateAutomaticDiscount(params, request);
 
-  errors = createDiscount.data?.automaticAppDiscount?.userErrors;
-  return json({ errors });
+  return json({ createDiscount, errors });
 };
 
 export default function NewDiscount() {
@@ -58,11 +58,18 @@ export default function NewDiscount() {
   const isLoading = navigation.state === "submitting";
   const [formErrors, setFormErrors] = useState(false);
 
+  const { title, discountValue, customerTag, shippingMethod, metafieldId } =
+    JSON.parse(loaderData.body);
+
+  const [isNew, setIsNew] = useState(
+    loaderData.body.functionId === "new" ? true : false
+  );
   const [formValues, setFormValues] = useState({
-    discountTitle: loaderData.title,
-    discountValue: loaderData.discountValue,
-    customerTag: loaderData.customerTag,
-    shippingMethod: loaderData.shippingMethod,
+    discountTitle: title,
+    discountValue: discountValue,
+    customerTag: customerTag,
+    shippingMethod: shippingMethod,
+    metafieldId: metafieldId,
   });
 
   const updateFormValues = (newValues) => {
@@ -88,6 +95,8 @@ export default function NewDiscount() {
   useEffect(() => {
     if (actionData?.errors.length === 0) {
       open("shopify:admin/discounts", "_top");
+    } else {
+      console.log("Errors found, not redirecting", actionData?.errors);
     }
   }, [actionData?.errors]);
 
@@ -100,7 +109,7 @@ export default function NewDiscount() {
         onAction: () => open("shopify:admin/discounts", "_top"),
       }}
       primaryAction={{
-        content: "Create discount",
+        content: isNew ? "Create discount" : "Update discount",
         loading: isLoading,
         onAction: handleSubmit,
       }}
@@ -114,7 +123,7 @@ export default function NewDiscount() {
         >
           <p style={{ marginBottom: "20px" }}>
             Fill in the details below to create and customize your shipping
-            discount.
+            discount. {formValues.metafieldId}
           </p>
 
           <FormBlock
