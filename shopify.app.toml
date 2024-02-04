@@ -3,7 +3,7 @@
 client_id = "9516d1bae1363a7db4c7fbe3ac753eca"
 name = "growing-shipping-testing"
 handle = "growing-shipping-testing"
-application_url = "https://bean-school-orleans-coding.trycloudflare.com"
+application_url = "https://browser-casio-causes-makers.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products, write_discounts, write_delivery_customizations"
 
 [auth]
 redirect_urls = [
-  "https://bean-school-orleans-coding.trycloudflare.com/auth/callback",
-  "https://bean-school-orleans-coding.trycloudflare.com/auth/shopify/callback",
-  "https://bean-school-orleans-coding.trycloudflare.com/api/auth/callback"
+  "https://browser-casio-causes-makers.trycloudflare.com/auth/callback",
+  "https://browser-casio-causes-makers.trycloudflare.com/auth/shopify/callback",
+  "https://browser-casio-causes-makers.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

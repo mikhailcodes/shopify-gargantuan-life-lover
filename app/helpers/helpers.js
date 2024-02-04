@@ -11,7 +11,6 @@ export const createAutomaticDiscount = async (params, request) => {
 
   const discountTitle = formData.get("discountTitle");
   const discountValue = formData.get("discountValue");
-  const customerTag = formData.get("customerTag");
   const shippingMethod = formData.get("shippingMethod");
 
   try {
@@ -29,7 +28,6 @@ export const createAutomaticDiscount = async (params, request) => {
             functionId: functionId,
             startsAt: "2022-01-01T00:00:00",
             discountValue: discountValue,
-            customerTag: customerTag,
             shippingMethod: shippingMethod
           }),
         },
@@ -94,7 +92,7 @@ export const getAutomaticDiscountData = async (params, request) => {
     const shippingDiscount = responseJson.data.automaticDiscountNode;
     const metafieldValue = JSON.parse(shippingDiscount.metafield.value);
     const metafieldId = shippingDiscount.metafield.id;
-    const { title, discountValue, customerTag, shippingMethod } = metafieldValue;
+    const { title, discountValue, shippingMethod } = metafieldValue;
 
     return {
       headers: { "Content-Type": "application/json" },
@@ -103,7 +101,6 @@ export const getAutomaticDiscountData = async (params, request) => {
         functionId: functionId,
         startsAt: "2022-01-01T00:00:00",
         discountValue: discountValue,
-        customerTag: customerTag,
         shippingMethod: shippingMethod,
         metafieldId: metafieldId
       }),
@@ -121,7 +118,6 @@ export const updateAutomaticDiscount = async (params, request) => {
 
     const discountTitle = formData.get("discountTitle");
     const discountValue = formData.get("discountValue");
-    const customerTag = formData.get("customerTag");
     const shippingMethod = formData.get("shippingMethod");
     const metafieldId = formData.get("metafieldId");
 
@@ -137,7 +133,6 @@ export const updateAutomaticDiscount = async (params, request) => {
             functionId: functionId,
             startsAt: "2022-01-01T00:00:00",
             discountValue: discountValue,
-            customerTag: customerTag,
             shippingMethod: shippingMethod
           }),
         },

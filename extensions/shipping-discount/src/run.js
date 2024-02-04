@@ -22,18 +22,20 @@ export function run(input) {
     input?.discountNode?.metafield?.value ?? "{}"
   );
 
-  const { hasAnyTag, numberOfOrders } = input?.cart?.buyerIdentity?.customer;
+  const { numberOfOrders } = input?.cart?.buyerIdentity?.customer;
   const deliveryGroups = input?.cart?.deliveryGroups;
+  const { shippingMethod, discountValue, customerTag } = configuration;
 
-  if (hasAnyTag && numberOfOrders <= 1) {
-    const expressDeliveryOption = findExpressDelivery(deliveryGroups);
+
+  if (numberOfOrders <= 1) {
+    const expressDeliveryOption = findExpressDelivery(deliveryGroups, shippingMethod);
     const expressHandle = expressDeliveryOption ? expressDeliveryOption.handle : null;
 
     if (expressDeliveryOption) {
       return {
         discounts: [
           {
-            message: "You have a discount",
+            message: "Shipping discount",
             targets: [
               {
                 deliveryOption: {
@@ -43,7 +45,7 @@ export function run(input) {
             ],
             value: {
               percentage: {
-                value: 50
+                value: discountValue
               }
             },
           }
@@ -56,11 +58,17 @@ export function run(input) {
   return EMPTY_DISCOUNT;
 };
 
+function hasAnyTag(tags, value) {
+  return tags.includes(value);
+}
 
-function findExpressDelivery(deliveryGroups) {
+
+function findExpressDelivery(deliveryGroups, shippingMethod) {
+  !shippingMethod ? shippingMethod = "Express" : shippingMethod; // default to "Express" if no shipping method is provided for testing
+
   for (const group of deliveryGroups) {
     for (const option of group.deliveryOptions) {
-      if (option.title === "Express") {
+      if (option.title === shippingMethod) {
         return option;
       }
     }

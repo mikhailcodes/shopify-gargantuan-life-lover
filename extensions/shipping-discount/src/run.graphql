@@ -5,8 +5,9 @@ query RunInput {
   cart {
     buyerIdentity {
       customer {
-        hasAnyTag(tags: ["VIP"])
+        id
         numberOfOrders
+        hasAnyTag(tags: ["VIP"])
       }
     }
     cost {
@@ -22,6 +23,7 @@ query RunInput {
       id
     }
   }
+
   discountNode {
     metafield(
       namespace: "$app:shipping-discount"

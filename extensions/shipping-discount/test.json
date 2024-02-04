@@ -1,0 +1,40 @@
+{
+    "cart": {
+        "buyerIdentity": {
+            "customer": {
+                "id": "gid://shopify/Customer/7232611025137",
+                "numberOfOrders": 0,
+                "hasTags": []
+            }
+        },
+        "cost": {
+            "subtotalAmount": {
+                "amount": "749.95"
+            }
+        },
+        "deliveryGroups": [
+            {
+                "deliveryOptions": [
+                    {
+                        "title": "Economy",
+                        "handle": "570e2b1290b3eb772f16fc3b50bc9d21-9e912b3dae9b0e04b6f1facf08aa7cb2"
+                    },
+                    {
+                        "title": "Standard",
+                        "handle": "570e2b1290b3eb772f16fc3b50bc9d21-ee768830e386b87e4f230f4292c237a3"
+                    },
+                    {
+                        "title": "Express",
+                        "handle": "570e2b1290b3eb772f16fc3b50bc9d21-5533d18b96e8c70639d80fd295a8b3ba"
+                    }
+                ],
+                "id": "gid://shopify/CartDeliveryGroup/0"
+            }
+        ]
+    },
+    "discountNode": {
+        "metafield": {
+            "value": "{\"title\":\"Express Discount\",\"functionId\":\"5ecd2d94-b11f-490b-a9b4-cbba8f52b8fe\",\"startsAt\":\"2022-01-01T00:00:00\",\"discountValue\":\"50\",\"customerTag\":\"VIP\",\"shippingMethod\":\"Express\"}"
+        }
+    }
+}

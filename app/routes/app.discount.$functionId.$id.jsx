@@ -15,8 +15,8 @@ import {
 } from "../helpers/helpers";
 
 export const loader = async ({ params, request }) => {
-  const { id } = params;
   // On load we want to check if the app metafields/data are already created
+  const { id } = params;
   if (id == "new") {
     return {
       headers: { "Content-Type": "application/json" },
@@ -25,7 +25,6 @@ export const loader = async ({ params, request }) => {
         functionId: "",
         startsAt: "2022-01-01T00:00:00",
         discountValue: "",
-        customerTag: "",
         shippingMethod: "",
       }),
     };
@@ -58,16 +57,17 @@ export default function NewDiscount() {
   const isLoading = navigation.state === "submitting";
   const [formErrors, setFormErrors] = useState(false);
 
-  const { title, discountValue, customerTag, shippingMethod, metafieldId } =
-    JSON.parse(loaderData.body);
+  const { title, discountValue, shippingMethod, metafieldId } = JSON.parse(
+    loaderData.body
+  );
 
   const [isNew, setIsNew] = useState(
     loaderData.body.functionId === "new" ? true : false
   );
+
   const [formValues, setFormValues] = useState({
     discountTitle: title,
     discountValue: discountValue,
-    customerTag: customerTag,
     shippingMethod: shippingMethod,
     metafieldId: metafieldId,
   });
@@ -150,10 +150,6 @@ const FormBlock = ({ formValues, updateFormValues, isLoading, formErrors }) => {
     updateFormValues({ shippingMethod: value });
   };
 
-  const setCustomerTag = (value) => {
-    updateFormValues({ customerTag: value });
-  };
-
   const setDiscountValue = (value) => {
     updateFormValues({ discountValue: value });
   };
@@ -195,16 +191,6 @@ const FormBlock = ({ formValues, updateFormValues, isLoading, formErrors }) => {
         </FormLayout.Group>
 
         <FormLayout.Group>
-          <TextField
-            name="customerTag"
-            type="text"
-            label="Specify customer tag (optional)"
-            value={customerTag}
-            onChange={setCustomerTag}
-            disabled={isLoading}
-            autoComplete="on"
-            helpText="Reserves discount for specifically tagged customers."
-          />
           <TextField
             name="discountValue"
             type="number"
